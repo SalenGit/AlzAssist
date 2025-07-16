@@ -18,7 +18,7 @@ torchrun \
     --max_completion_length 8192 \
     --log_completions true \
     --model ./ckpt \
-    --dataset  rlhf_dataset.json \
+    --dataset  rlhf_dataset_replace.json \
     --dataloader_num_workers 16 \
     --dataloader_persistent_workers true \
     --split_dataset_ratio 0 \
