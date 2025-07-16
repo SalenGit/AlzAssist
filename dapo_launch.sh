@@ -1,3 +1,4 @@
+# 获取 sft.py 的完整路径
 SFT_PATH=$(python -c "import swift.cli.rlhf; print(swift.cli.rlhf.__file__)")
 
 CUDA_VISIBLE_DEVICES=0,1,2,3 NPROC_PER_NODE=4 ENABLE_AUDIO_OUTPUT=0 \
@@ -12,21 +13,21 @@ torchrun \
     --learning_rate 1e-5 \
     --external_plugins reward_format_accuracy.py \
     --reward_funcs format_accuracy \
-    --num_generations 16 \
+    --num_generations 8 \
     --max_length 8192 \
     --max_completion_length 8192 \
     --log_completions true \
-    --model Qwen2.5-Omni/ckpt \
+    --model ./ckpt \
     --dataset  rlhf_dataset.json \
     --dataloader_num_workers 16 \
     --dataloader_persistent_workers true \
     --split_dataset_ratio 0 \
     --save_steps 50 \
     --save_total_limit 5 \
-    --gradient_accumulation_steps 2 \
-    --num_train_epochs 2 \
-    --per_device_train_batch_size 2 \
-    --per_device_eval_batch_size 4 \
+    --gradient_accumulation_steps 4 \
+    --num_train_epochs 1 \
+    --per_device_train_batch_size 1 \
+    --per_device_eval_batch_size 2 \
     --train_type lora \
     --gradient_checkpointing true \
     --lora_rank 32 \
