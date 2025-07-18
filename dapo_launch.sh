@@ -12,38 +12,37 @@ torchrun \
     --torch_dtype bfloat16 \
     --learning_rate 1e-5 \
     --external_plugins reward_format_accuracy.py \
-    --reward_funcs format_accuracy \
-    --num_generations 8 \
-    --max_length 8192 \
-    --max_completion_length 8192 \
+    --reward_funcs format_accuracy soft_overlong \
+    --num_generations 16 \
+    --max_completion_length 2048 \
     --log_completions true \
     --model ./ckpt \
-    --dataset  rlhf_dataset_replace.json \
+    --resume_from_checkpoint output/dapo_noformat_v2/v2-20250717-175656/checkpoint-1000 \
+    --dataset  rlhf_dataset_replace_alz.json \
     --dataloader_num_workers 16 \
-    --dataloader_persistent_workers true \
     --split_dataset_ratio 0 \
-    --save_steps 50 \
+    --save_steps 100 \
     --save_total_limit 5 \
     --gradient_accumulation_steps 4 \
     --num_train_epochs 1 \
     --per_device_train_batch_size 1 \
-    --per_device_eval_batch_size 2 \
+    --per_device_eval_batch_size 4 \
     --train_type lora \
     --gradient_checkpointing true \
     --lora_rank 32 \
     --target_modules 'all-linear' \
     --attn_impl flash_attn \
     --ddp_find_unused_parameters false \
-    --output_dir 'output/dapo' \
+    --output_dir 'output/dapo_noformat_v2' \
     --lora_bias 'all' \
     --freeze_vit true \
     --freeze_aligner true \
     --loss_type bnpo \
     --epsilon_high 0.28 \
     --dynamic_sample true \
-    --max_resample_times 5 \
-    --overlong_filter true \
-    --soft_cache_length 4096 \
-    
+    --max_resample_times 10 \
+    --soft_cache_length 1024 \
+
+    #--dataloader_persistent_workers true \
     #--use_vllm true \
     #--vllm_gpu_memory_utilization 0.5 \
