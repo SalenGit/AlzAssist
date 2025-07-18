@@ -17,7 +17,6 @@ torchrun \
     --max_completion_length 2048 \
     --log_completions true \
     --model ./ckpt \
-    --resume_from_checkpoint output/dapo_noformat_v2/v2-20250717-175656/checkpoint-1000 \
     --dataset  rlhf_dataset_replace_alz.json \
     --dataloader_num_workers 16 \
     --split_dataset_ratio 0 \
